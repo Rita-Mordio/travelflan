@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { Card, Grid, Header, Input, Button, Container } from 'semantic-ui-react';
 
 import TopMenu from '../components/TopMenu';
 import Album from '../components/Album';
 
 const Albums = ({ history }) => {
+  const sweetAlert = withReactContent(Swal);
+
+  const [inputValue, setInputValue] = useState('');
   const [albums, setAlbums] = useState([]);
   const [moreCount, setMoreCount] = useState(0);
 
@@ -19,10 +24,10 @@ const Albums = ({ history }) => {
 
   const pageNation = async () => {
     const response = await getAlbums();
+    const reverseResponse = response.data.reverse();
     const tempArray = [];
 
-    for (let i = moreCount * 5; i < moreCount * 5 + 5; i++) tempArray.push(response.data[i]);
-
+    for (let i = moreCount * 5; i < moreCount * 5 + 5; i++) tempArray.push(reverseResponse[i]);
     setAlbums(albums.concat(tempArray));
   };
 
@@ -32,6 +37,23 @@ const Albums = ({ history }) => {
   };
 
   const clickMoreButton = () => setMoreCount(moreCount + 1);
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const addAlbum = () => {
+    if (inputValue === '') {
+      sweetAlert.fire({ title: '앨범 명을 입력해 주세요.' });
+      return false;
+    }
+
+    setAlbums([{
+      id: albums[0].id + 1,
+      title: inputValue,
+      userId: 99
+    }].concat(albums))
+  };
 
   return (
     <>
@@ -46,8 +68,15 @@ const Albums = ({ history }) => {
           <Grid.Row columns={1}>
             <div className="albums--edit">
               <Header as="h3">앨범 추가/수정</Header>
-              <Input className="albums--edit__input" placeholder="앨범 명을 입력해 주세요." />
-              <Button className="albums--edit__button">추가</Button>
+              <Input
+                className="albums--edit__input"
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="앨범 명을 입력해 주세요."
+              />
+              <Button className="albums--edit__button" onClick={addAlbum}>
+                확인
+              </Button>
             </div>
           </Grid.Row>
 
