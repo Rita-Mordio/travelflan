@@ -1,49 +1,60 @@
-import React from 'react';
-import { Card, Grid, Header, Input, Button, Menu, Container} from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Card, Grid, Header, Input, Button, Container } from 'semantic-ui-react';
 
-import Album from "../components/Album";
+import TopMenu from '../components/TopMenu';
+import Album from '../components/Album';
 
 const Albums = ({ history }) => {
+  const [albums, setAlbums] = useState([]);
+  const [moreCount, setMoreCount] = useState(0);
 
-  const logout = () => {
-    window.sessionStorage.setItem('autoSignIn', '');
-    window.sessionStorage.setItem('login', '')
-    history.push('/');
+  useEffect(() => {
+    pageNation();
+  }, [moreCount]);
+
+  const getAlbums = () => {
+    return axios.get('https://jsonplaceholder.typicode.com/albums');
   };
+
+  const pageNation = async () => {
+    const response = await getAlbums();
+    const tempArray = [];
+
+    for (let i = moreCount * 5; i < moreCount * 5 + 5; i++) tempArray.push(response.data[i]);
+
+    setAlbums(albums.concat(tempArray));
+  };
+
+  const renderAlbums = () => {
+    if (albums.length === 0) return false;
+    return albums.map((albumItem, index) => <Album title={albumItem.title} no={albumItem.id} key={albumItem.id} />);
+  };
+
+  const clickMoreButton = () => setMoreCount(moreCount + 1);
 
   return (
     <>
       {/*로그인 유무 체크*/}
       {window.sessionStorage.getItem('login') !== 'true' && history.push('/')}
 
-      <Menu>
-        <Menu.Menu position="right">
-          <Menu.Item name="log out" onClick={logout}>
-            log out
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
+      {/*상단 메뉴바*/}
+      <TopMenu history={history} />
 
       <Container>
         <Grid>
           <Grid.Row columns={1}>
-            <div className='albums--edit'>
-              <Header as="h3">Album Title</Header>
+            <div className="albums--edit">
+              <Header as="h3">앨범 추가/수정</Header>
               <Input className="albums--edit__input" placeholder="앨범 명을 입력해 주세요." />
-              <Button className="albums--edit__button" >추가</Button>
+              <Button className="albums--edit__button">추가</Button>
             </div>
           </Grid.Row>
 
-          <Card.Group>
-            <Album />
-            <Album />
-            <Album />
-            <Album />
-            <Album />
-          </Card.Group>
+          <Card.Group>{renderAlbums()}</Card.Group>
 
-          <Grid.Row className='albums--more' centered>
-            <Button>더 보기</Button>
+          <Grid.Row className="albums--more" centered>
+            <Button onClick={clickMoreButton}>더 보기</Button>
           </Grid.Row>
         </Grid>
       </Container>

@@ -2,12 +2,15 @@ import React from "react";
 
 import {Card, Image} from "semantic-ui-react";
 
-const Album = () => {
+const Album = ({ title, no }) => {
   return(
     <Card>
       <Image src='http://placehold.it/300x200' />
       <Card.Content>
-        <Card.Header>album title</Card.Header>
+        <Card.Header>{title}</Card.Header>
+      </Card.Content>
+      <Card.Content extra>
+        <p>No.<span>{no}</span></p>
       </Card.Content>
     </Card>
   )
