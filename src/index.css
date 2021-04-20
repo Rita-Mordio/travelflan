@@ -16,3 +16,29 @@ body {
 .signIn--grid__column {
   max-width: 450px;
 }
+
+/*##############################*/
+/*##############################*/
+/*########    Albums    #######*/
+/*##############################*/
+/*##############################*/
+
+.albums--edit {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #dddddd;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.albums--edit__input {
+  width: calc(100% - 100px);
+}
+
+.albums--edit__button {
+  width: 80px;
+}
+
+.albums--more {
+  margin-top: 30px;
+}
