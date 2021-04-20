@@ -24,7 +24,10 @@ const Albums = ({ history }) => {
     const reverseResponse = response.data.reverse();
     const tempArray = [];
 
-    for (let i = moreCount * 5; i < moreCount * 5 + 5; i++) tempArray.push(reverseResponse[i]);
+    for (let i = moreCount * 5; i < moreCount * 5 + 5; i++) {
+      if (reverseResponse[i] === undefined) break;
+      tempArray.push(reverseResponse[i]);
+    }
     setAlbums(albums.concat(tempArray));
   };
 
