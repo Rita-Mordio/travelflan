@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 import Album from './Album';
+import RenderLoader from './RenderLoader';
 import { AlbumContext } from '../store/AlbumStore';
 
-const AlbumList = () => {
+const AlbumList = ({ showLoader }) => {
   const { albums, setAlbums } = useContext(AlbumContext);
 
   const renderAlbums = () => {
-    if (albums.length === 0) return false;
-
     return albums.map((albumItem, index) => (
       <Album
         title={albumItem.title}
@@ -20,7 +19,7 @@ const AlbumList = () => {
     ));
   };
 
-  return <>{renderAlbums()}</>;
+  return <>{showLoader ? <RenderLoader /> : <>{renderAlbums()}</>}</>;
 };
 
 export default AlbumList;

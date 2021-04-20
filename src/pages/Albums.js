@@ -9,6 +9,7 @@ import AlbumList from '../components/AlbumList';
 
 const Albums = ({ history }) => {
   const [moreCount, setMoreCount] = useState(0);
+  const [showLoader, setShowLoader] = useState(false);
   const { albums, setAlbums } = useContext(AlbumContext);
 
   useEffect(() => {
@@ -16,6 +17,7 @@ const Albums = ({ history }) => {
   }, [moreCount]);
 
   const getAlbums = () => {
+    setShowLoader(true)
     return axios.get('https://jsonplaceholder.typicode.com/albums');
   };
 
@@ -29,6 +31,7 @@ const Albums = ({ history }) => {
       tempArray.push(reverseResponse[i]);
     }
     setAlbums(albums.concat(tempArray));
+    setShowLoader(false)
   };
 
   const clickMoreButton = () => setMoreCount(moreCount + 1);
@@ -48,7 +51,7 @@ const Albums = ({ history }) => {
           </Grid.Row>
 
           <Card.Group>
-            <AlbumList />
+            <AlbumList showLoader={showLoader} setShowLoader={setShowLoader} />
           </Card.Group>
 
           <Grid.Row className="albums--more" centered>
