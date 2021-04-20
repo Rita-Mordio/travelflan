@@ -50,7 +50,7 @@ const SignIn = ({ history }) => {
     //하드코딩하여 이메일, 패스워드 체크하는 부분
     if (userInfo.email === 'aaa@aaa.com' && userInfo.password === '1234') {
       if (userInfo.autoSignIn) window.sessionStorage.setItem('autoSignIn', 'true');
-      window.sessionStorage.setItem('login', 'true')
+      window.sessionStorage.setItem('login', 'true');
       history.push('/albums');
     } else {
       sweetAlert.fire({ title: '존재하지 않는 사용자 입니다.' });

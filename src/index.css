@@ -23,7 +23,17 @@ body {
 /*##############################*/
 /*##############################*/
 
-.albums--edit {
+.albums--more {
+  margin-top: 30px;
+}
+
+/*##############################*/
+/*##############################*/
+/*######    AddAlbumForm    #####*/
+/*##############################*/
+/*##############################*/
+
+.addAlbumForm--edit {
   width: 100%;
   padding: 20px;
   border: 1px solid #dddddd;
@@ -31,14 +41,20 @@ body {
   box-sizing: border-box;
 }
 
-.albums--edit__input {
+.addAlbumForm--edit__input {
   width: calc(100% - 100px);
 }
 
-.albums--edit__button {
+.addAlbumForm--edit__button {
   width: 80px;
 }
 
-.albums--more {
-  margin-top: 30px;
+/*##############################*/
+/*##############################*/
+/*########     Album     #######*/
+/*##############################*/
+/*##############################*/
+
+.album--edit__input {
+  width: 100%;
 }

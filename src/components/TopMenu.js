@@ -1,15 +1,14 @@
-import React from "react";
-import {Menu} from "semantic-ui-react";
+import React from 'react';
+import { Menu } from 'semantic-ui-react';
 
 const TopMenu = ({ history }) => {
-
   const logout = () => {
     window.sessionStorage.setItem('autoSignIn', '');
-    window.sessionStorage.setItem('login', '')
+    window.sessionStorage.setItem('login', '');
     history.push('/');
   };
 
-  return(
+  return (
     <Menu>
       <Menu.Menu position="right">
         <Menu.Item name="log out" onClick={logout}>
@@ -17,7 +16,7 @@ const TopMenu = ({ history }) => {
         </Menu.Item>
       </Menu.Menu>
     </Menu>
-  )
-}
+  );
+};
 
-export default TopMenu
+export default TopMenu;
