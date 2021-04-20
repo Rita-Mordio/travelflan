@@ -33,7 +33,16 @@ const Albums = ({ history }) => {
 
   const renderAlbums = () => {
     if (albums.length === 0) return false;
-    return albums.map((albumItem, index) => <Album title={albumItem.title} no={albumItem.id} key={albumItem.id} />);
+    return albums.map((albumItem, index) => (
+      <Album
+        title={albumItem.title}
+        no={albumItem.id}
+        isRemove={albumItem.remove}
+        key={albumItem.id}
+        albums={albums}
+        setAlbums={setAlbums}
+      />
+    ));
   };
 
   const clickMoreButton = () => setMoreCount(moreCount + 1);
@@ -48,11 +57,15 @@ const Albums = ({ history }) => {
       return false;
     }
 
-    setAlbums([{
-      id: albums[0].id + 1,
-      title: inputValue,
-      userId: 99
-    }].concat(albums))
+    setAlbums(
+      [
+        {
+          id: albums[0].id + 1,
+          title: inputValue,
+          userId: 99,
+        },
+      ].concat(albums),
+    );
   };
 
   return (
