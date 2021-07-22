@@ -1,3 +1,6 @@
+## Github 주소
+- https://github.com/Rita-Mordio/travelflan
+
 ## 로그인 정보
 - 아이디 : aaa@aaa.com
 - 비밀번호 : 1234
